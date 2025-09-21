@@ -162,6 +162,24 @@ input[type="text"], input[type="number"] {
     border-color: #f44336;
 }
 
+.question-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.question-number {
+    font-weight: 700;
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+.question-text {
+    margin: 0;
+    font-size: 1.1em;
+}
+
 .options {
     display: flex;
     flex-direction: column;

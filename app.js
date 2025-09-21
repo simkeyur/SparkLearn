@@ -97,9 +97,20 @@ function renderQuestions(questions) {
         questionCard.className = 'question-card';
         questionCard.dataset.questionIndex = index;
 
+        const questionHeader = document.createElement('div');
+        questionHeader.className = 'question-header';
+
+        const questionNumber = document.createElement('span');
+        questionNumber.className = 'question-number';
+        questionNumber.textContent = `${index + 1}.`;
+
         const questionText = document.createElement('p');
-        questionText.textContent = `${index + 1}. ${q.question}`;
-        questionCard.appendChild(questionText);
+        questionText.className = 'question-text';
+        questionText.textContent = q.question;
+
+        questionHeader.appendChild(questionNumber);
+        questionHeader.appendChild(questionText);
+        questionCard.appendChild(questionHeader);
 
         const optionsContainer = document.createElement('div');
         optionsContainer.className = 'options';
