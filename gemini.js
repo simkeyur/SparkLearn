@@ -1,14 +1,34 @@
 // This file will contain the logic for interacting with the Gemini API.
-// We will use the BYOK concept, so the user will need to provide their own API key.
+
+// --- Safe Local Storage Wrappers ---
+// Safari's private browsing mode blocks localStorage. These functions prevent crashes.
+function safeLocalStorageSet(key, value) {
+    try {
+        localStorage.setItem(key, value);
+        return true;
+    } catch (e) {
+        console.warn("localStorage is not available. Changes will not be saved.", e);
+        return false;
+    }
+}
+
+function safeLocalStorageGet(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        console.warn("localStorage is not available.", e);
+        return null;
+    }
+}
 
 const API_KEY_STORAGE_KEY = 'gemini_api_key';
 
 function getApiKey() {
-    return localStorage.getItem(API_KEY_STORAGE_KEY);
+    return safeLocalStorageGet(API_KEY_STORAGE_KEY);
 }
 
 function setApiKey(apiKey) {
-    localStorage.setItem(API_KEY_STORAGE_KEY, apiKey);
+    safeLocalStorageSet(API_KEY_STORAGE_KEY, apiKey);
 }
 
 async function generateContent(prompt) {

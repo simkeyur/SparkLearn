@@ -49,8 +49,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const editAgeInput = document.getElementById('edit-age');
     const saveEditProfileBtn = document.getElementById('save-edit-profile-btn');
 
+    // --- Safe Local Storage Wrappers ---
+    function safeLocalStorageSet(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (e) {
+            console.warn("localStorage is not available. Profile changes will not be saved.", e);
+            return false;
+        }
+    }
+
+    function safeLocalStorageGet(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (e) {
+            console.warn("localStorage is not available.", e);
+            return null;
+        }
+    }
+
     // --- Application State ---
-    let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+    let profiles = JSON.parse(safeLocalStorageGet('profiles')) || [];
     let currentProfile = null;
     let questionsData = [];
     let parentalCheckAnswer = 0;
@@ -150,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function deleteProfile(profileIndex) {
         openParentalGate(() => {
             profiles.splice(profileIndex, 1);
-            localStorage.setItem('profiles', JSON.stringify(profiles));
+            safeLocalStorageSet('profiles', JSON.stringify(profiles));
             renderProfilesForSettings(profiles, editProfile, deleteProfile);
         });
     }
@@ -183,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const age = ageInput.value;
         if (name && age) {
             profiles.push({ name, age });
-            localStorage.setItem('profiles', JSON.stringify(profiles));
+            safeLocalStorageSet('profiles', JSON.stringify(profiles));
             renderProfilesForSettings(profiles, editProfile, deleteProfile);
             nameInput.value = '';
             ageInput.value = '';
@@ -195,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (profileToEditIndex > -1) {
             profiles[profileToEditIndex].name = editNameInput.value;
             profiles[profileToEditIndex].age = editAgeInput.value;
-            localStorage.setItem('profiles', JSON.stringify(profiles));
+            safeLocalStorageSet('profiles', JSON.stringify(profiles));
             editProfileModal.classList.add('hidden');
             renderProfilesForSettings(profiles, editProfile, deleteProfile);
             profileToEditIndex = -1;
