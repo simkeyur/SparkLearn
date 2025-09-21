@@ -1,7 +1,7 @@
 # SparkLearn ✨
 
 SparkLearn is a modern, kid-friendly web app designed to help children learn reading and math through interactive, AI-powered modules. The app adapts content to the child's age, making learning fun, engaging, and personalized.
-
+https://simkeyur.github.io/sparklearn
 ## Features
 
 - **Profile Creation:** Kids can create and select their own profiles (name, age) stored in local storage.
