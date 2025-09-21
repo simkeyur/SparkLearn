@@ -27,12 +27,14 @@
         </div>
 
         <div id="main-app" class="hidden">
+            <button id="exit-to-profile-btn" class="btn-exit">🏠 Exit</button>
             <h2 id="welcome-message"></h2>
             <div id="module-selection" class="card">
                 <h3>Choose Your Adventure!</h3>
                 <div class="module-buttons">
                     <button class="module-btn" data-module="reading">📚 Reading</button>
                     <button class="module-btn" data-module="math">🧮 Math</button>
+                    <button class="module-btn" data-module="logic">🧠 Logic</button>
                 </div>
             </div>
 
@@ -69,14 +71,29 @@
                 <h2>🔑 Gemini API Key</h2>
                 <input type="text" id="api-key" placeholder="Enter your API key">
                 <button id="save-api-key-btn" class="btn-secondary">Save Key</button>
+                <p class="api-key-info">
+                    You can get a free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>. The free tier is generous, allowing for dozens of modules per day.
+                </p>
             </div>
             <button id="close-modal-btn" class="btn-close">✖</button>
+        </div>
+    </div>
+
+    <!-- New Parental Gate Modal for Exiting -->
+    <div id="exit-parental-gate-modal" class="modal-container hidden">
+        <div class="modal-content card">
+            <h2>🔒 Are you a grown-up?</h2>
+            <p>To exit, please answer this question:</p>
+            <p id="parental-question"></p>
+            <input type="number" id="parental-answer" placeholder="Your answer">
+            <button id="submit-parental-answer-btn" class="btn-primary">Confirm</button>
+            <button id="close-exit-modal-btn" class="btn-close">✖</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <script src="prompts.js"></script>
     <script src="gemini.js"></script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>

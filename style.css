@@ -268,6 +268,25 @@ input[type="text"], input[type="number"] {
     max-width: 500px;
 }
 
+.btn-exit {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.btn-exit:hover {
+    background-color: #d32f2f;
+}
+
 .btn-close {
     position: absolute;
     top: 15px;
@@ -277,4 +296,10 @@ input[type="text"], input[type="number"] {
     font-size: 1.5em;
     cursor: pointer;
     color: #aaa;
+}
+
+.api-key-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 15px;
 }

@@ -47,6 +47,33 @@ function getPrompt(age, moduleType) {
                 - The "questions" should be 5-7 problems including multi-step arithmetic and simple word problems. Example: "If a train travels at 60 mph, how far does it go in 3 hours?"`;
                 break;
         }
+    } else if (moduleType === 'logic') {
+        switch (ageRange) {
+            case '1-3':
+                prompt = `Create a simple "what comes next?" sequencing module for a toddler (age ${age}).
+                ${baseJsonStructure}
+                - The "story" should be a title like "## What's Next? 🤔".
+                - The "questions" should be 3-4 simple questions about daily routines or simple patterns using emojis. Example: "First you wake up 🛌, then you eat breakfast 🥞. What's next?", with options like "Go to sleep 😴", "Brush your teeth 😁", "Play with toys 🧸".`;
+                break;
+            case '4-6':
+                prompt = `Create a "sequence of events" logic module for a young child (age ${age}).
+                ${baseJsonStructure}
+                - The "story" should be a title like "## Order the Story! 📜".
+                - The "questions" should present a simple 3-step story (e.g., planting a seed) and ask the child to identify the first, middle, or last step. Example: "To make a sandwich, what is the FIRST step?", with options like "Eat the sandwich", "Put jelly on bread", "Get two slices of bread".`;
+                break;
+            case '7-9':
+                prompt = `Create a basic "if-then" conditional logic module for a child (age ${age}).
+                ${baseJsonStructure}
+                - The "story" should be a title like "## If This, Then That! 🤖".
+                - The "questions" should be 4-6 simple conditional scenarios. Example: "IF it is raining outside, THEN you should bring...", with options like "A kite", "Sunglasses", "An umbrella", "A bucket".`;
+                break;
+            case '10-12':
+                prompt = `Create a simple "algorithmic thinking" module for a pre-teen (age ${age}).
+                ${baseJsonStructure}
+                - The "story" should be a title like "## Plan the Steps! 🗺️".
+                - The "questions" should be 4-6 problems that require breaking down a task into a logical sequence of steps. Example: "You want to make a robot draw a square. What is the correct sequence of commands?", with options showing different orders of 'pen down', 'move forward', 'turn right', 'pen up'.`;
+                break;
+        }
     } else { // Reading module
         switch (ageRange) {
             case '1-3':
