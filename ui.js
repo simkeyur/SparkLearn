@@ -9,13 +9,28 @@ const submitAnswersBtn = document.getElementById('submit-answers-btn');
 const loader = document.querySelector('#module-view .loader');
 const markdownConverter = new showdown.Converter();
 
-export function renderProfiles(profiles, selectProfileCallback) {
+export function renderProfiles(profiles, selectProfileCallback, deleteProfileCallback) {
     profilesContainer.innerHTML = '';
-    profiles.forEach(profile => {
+    profiles.forEach((profile, index) => {
         const profileElement = document.createElement('div');
         profileElement.classList.add('profile');
         profileElement.textContent = profile.name;
-        profileElement.addEventListener('click', () => selectProfileCallback(profile));
+        profileElement.addEventListener('click', (e) => {
+            // Prevent selection when delete button is clicked
+            if (e.target.tagName !== 'BUTTON') {
+                selectProfileCallback(profile);
+            }
+        });
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-profile-btn';
+        deleteBtn.textContent = '✖';
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent profile selection
+            deleteProfileCallback(index);
+        });
+
+        profileElement.appendChild(deleteBtn);
         profilesContainer.appendChild(profileElement);
     });
 }

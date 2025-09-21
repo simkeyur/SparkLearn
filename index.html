@@ -61,13 +61,7 @@
     <!-- Modal for Parental Gate and API Key -->
     <div id="settings-modal" class="modal-container hidden">
         <div class="modal-content card">
-            <div id="parental-gate">
-                <h2>🔒 Parental Control</h2>
-                <p>Please enter your birth year to continue:</p>
-                <input type="number" id="birth-year" placeholder="YYYY">
-                <button id="validate-birth-year-btn" class="btn-primary">Submit</button>
-            </div>
-            <div id="api-key-section" class="hidden">
+            <div id="api-key-section">
                 <h2>🔑 Gemini API Key</h2>
                 <input type="text" id="api-key" placeholder="Enter your API key">
                 <button id="save-api-key-btn" class="btn-secondary">Save Key</button>
@@ -79,15 +73,15 @@
         </div>
     </div>
 
-    <!-- New Parental Gate Modal for Exiting -->
-    <div id="exit-parental-gate-modal" class="modal-container hidden">
+    <!-- Reusable Parental Gate Modal -->
+    <div id="parental-gate-modal" class="modal-container hidden">
         <div class="modal-content card">
             <h2>🔒 Are you a grown-up?</h2>
-            <p>To exit, please answer this question:</p>
+            <p>To continue, please answer this question:</p>
             <p id="parental-question"></p>
             <input type="number" id="parental-answer" placeholder="Your answer">
             <button id="submit-parental-answer-btn" class="btn-primary">Confirm</button>
-            <button id="close-exit-modal-btn" class="btn-close">✖</button>
+            <button id="close-parental-gate-btn" class="btn-close">✖</button>
         </div>
     </div>
 

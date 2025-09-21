@@ -64,11 +64,35 @@ header h1 {
     border-radius: 15px;
     font-size: 1.2em;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .profile:hover {
     background-color: var(--primary-color);
     color: white;
+}
+
+.delete-profile-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile:hover .delete-profile-btn {
+    opacity: 1;
 }
 
 input[type="text"], input[type="number"] {
@@ -292,6 +316,22 @@ input[type="text"], input[type="number"] {
 
 .btn-exit:hover {
     background-color: #d32f2f;
+}
+
+.pulse {
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 195, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 195, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 195, 0, 0);
+    }
 }
 
 .btn-close {
