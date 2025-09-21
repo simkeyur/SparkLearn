@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkLearn ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>SparkLearn ✨</h1>
+        </header>
+
+        <div id="profile-selection" class="card">
+            <h2>👤 Select Profile</h2>
+            <div id="profiles"></div>
+            <button id="new-profile-btn" class="btn-primary">Create New Profile ✨</button>
+        </div>
+
+        <div id="profile-creation" class="card hidden">
+            <h2>✏️ Create Profile</h2>
+            <input type="text" id="name" placeholder="Enter Name">
+            <input type="number" id="age" placeholder="Enter Age">
+            <button id="save-profile-btn" class="btn-primary">Save Profile</button>
+        </div>
+
+        <div id="main-app" class="hidden">
+            <h2 id="welcome-message"></h2>
+            <div id="module-selection" class="card">
+                <h3>Choose Your Adventure!</h3>
+                <div class="module-buttons">
+                    <button class="module-btn" data-module="reading">📚 Reading</button>
+                    <button class="module-btn" data-module="math">🧮 Math</button>
+                </div>
+            </div>
+
+            <div id="module-view" class="card hidden">
+                <button id="back-btn" class="btn-secondary">⬅️ Back to Modules</button>
+                <h3 id="module-title"></h3>
+                <div class="loader"></div>
+                <!-- New structure for story and questions -->
+                <div id="module-content-container">
+                    <div id="story-content"></div>
+                    <div id="questions-container"></div>
+                    <div id="score-container" class="hidden">
+                        <h4>Your Score: <span id="score">0</span></h4>
+                    </div>
+                    <button id="submit-answers-btn" class="btn-primary hidden">Submit Answers</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button for Settings -->
+    <button id="settings-fab" class="fab">🔑</button>
+
+    <!-- Modal for Parental Gate and API Key -->
+    <div id="settings-modal" class="modal-container hidden">
+        <div class="modal-content card">
+            <div id="parental-gate">
+                <h2>🔒 Parental Control</h2>
+                <p>Please enter your birth year to continue:</p>
+                <input type="number" id="birth-year" placeholder="YYYY">
+                <button id="validate-birth-year-btn" class="btn-primary">Submit</button>
+            </div>
+            <div id="api-key-section" class="hidden">
+                <h2>🔑 Gemini API Key</h2>
+                <input type="text" id="api-key" placeholder="Enter your API key">
+                <button id="save-api-key-btn" class="btn-secondary">Save Key</button>
+            </div>
+            <button id="close-modal-btn" class="btn-close">✖</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+    <script src="prompts.js"></script>
+    <script src="gemini.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
