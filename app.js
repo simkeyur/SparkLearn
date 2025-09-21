@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitParentalAnswerBtn = document.getElementById('submit-parental-answer-btn');
     const parentalErrorMessage = document.getElementById('parental-error-message');
 
+    // Add to Home Screen Banner elements
+    const addToHomeScreenBanner = document.getElementById('add-to-home-screen-banner');
+    const closeBannerBtn = document.getElementById('close-banner-btn');
+
     // Edit Profile Modal elements
     const editProfileModal = document.getElementById('edit-profile-modal');
     const closeEditModalBtn = document.getElementById('close-edit-modal-btn');
@@ -273,16 +277,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Add to Home Screen Banner Logic ---
+    function showAddToHomeScreenBanner() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+        if (isIOS && !isStandalone) {
+            addToHomeScreenBanner.classList.remove('hidden');
+        }
+    }
+
+    closeBannerBtn.addEventListener('click', () => {
+        addToHomeScreenBanner.classList.add('hidden');
+    });
+
     // --- Initial Page Load ---
     function initializeApp() {
+        renderProfiles(profiles, selectProfile, editProfile, deleteProfile);
+
+        parentalGateModal.classList.add('hidden');
+        editProfileModal.classList.add('hidden');
+
         if (!getApiKey()) {
             settingsFab.classList.add('pulse');
             setTimeout(() => {
                 openParentalGate(() => {
                     settingsModal.classList.remove('hidden');
+                    apiKeyInput.focus();
                 });
             }, 1000);
         }
+        showAddToHomeScreenBanner();
     }
 
     initializeApp();
