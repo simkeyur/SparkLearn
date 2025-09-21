@@ -227,6 +227,13 @@ input[type="text"], input[type="number"] {
     100% { transform: rotate(360deg); }
 }
 
+/* Responsive Design for smaller screens */
+@media (max-width: 600px) {
+    .module-buttons {
+        flex-direction: column;
+    }
+}
+
 /* Floating Action Button */
 .fab {
     position: fixed;
