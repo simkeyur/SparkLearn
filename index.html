@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+        <div class="shape shape5"></div>
+    </div>
     <div class="app-container">
         <header>
             <h1>SparkLearn ✨</h1>
@@ -94,6 +101,7 @@
             <p>To continue, please answer this question:</p>
             <p id="parental-question"></p>
             <input type="number" id="parental-answer" placeholder="Your answer">
+            <p id="parental-error-message" class="error-message hidden">Incorrect answer. Please try again.</p>
             <button id="submit-parental-answer-btn" class="btn-primary">Confirm</button>
             <button id="close-parental-gate-btn" class="btn-close">✖</button>
         </div>

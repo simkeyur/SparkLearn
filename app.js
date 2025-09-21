@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const parentalQuestion = document.getElementById('parental-question');
     const parentalAnswerInput = document.getElementById('parental-answer');
     const submitParentalAnswerBtn = document.getElementById('submit-parental-answer-btn');
+    const parentalErrorMessage = document.getElementById('parental-error-message');
 
     // Edit Profile Modal elements
     const editProfileModal = document.getElementById('edit-profile-modal');
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parentalCheckAnswer = num1 + num2;
         parentalQuestion.textContent = `What is ${num1} + ${num2}?`;
         parentalAnswerInput.value = '';
+        parentalErrorMessage.classList.add('hidden'); // Hide error on open
         onParentalCheckSuccess = onSuccessCallback;
         parentalGateModal.classList.remove('hidden');
     }
@@ -158,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 onParentalCheckSuccess();
             }
         } else {
-            alert('Incorrect answer. Please try again.');
+            parentalErrorMessage.classList.remove('hidden'); // Show error message
         }
     });
 

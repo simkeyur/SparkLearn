@@ -9,7 +9,7 @@
 
 body {
     font-family: var(--font-family);
-    background-color: var(--background-color);
+    background: linear-gradient(135deg, #6dd5ed, #2193b0);
     color: var(--text-color);
     margin: 0;
     padding: 20px;
@@ -19,15 +19,54 @@ body {
     min-height: 100vh;
 }
 
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden; /* Applying the fix here */
+}
+
+.shape {
+    position: absolute;
+    list-style: none;
+    display: block;
+    background: rgba(255, 255, 255, 0.2);
+    animation: float 20s linear infinite;
+}
+
+.shape1 { width: 20px; height: 20px; left: 10%; bottom: -150px; animation-duration: 18s; }
+.shape2 { width: 80px; height: 80px; left: 25%; bottom: -150px; animation-duration: 12s; }
+.shape3 { width: 150px; height: 150px; left: 50%; bottom: -150px; animation-duration: 25s; }
+.shape4 { width: 60px; height: 60px; left: 75%; bottom: -150px; animation-duration: 22s; }
+.shape5 { width: 40px; height: 40px; left: 90%; bottom: -150px; animation-duration: 15s; }
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+
 .app-container {
     width: 100%;
     max-width: 800px;
     text-align: center;
+    z-index: 1;
 }
 
 header h1 {
-    font-size: 2.5em;
-    color: var(--primary-color);
+    font-size: 3em; /* Slightly larger */
+    color: #f0f8ff; /* Softer, almost-white blue */
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.25); /* Deeper shadow */
     margin-bottom: 30px;
 }
 
@@ -293,6 +332,12 @@ input[type="text"], input[type="number"] {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #f44336;
+    font-weight: 700;
+    margin-top: 10px;
 }
 
 /* Responsive Design for smaller screens */
