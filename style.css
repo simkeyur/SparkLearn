@@ -72,31 +72,71 @@ header h1 {
     color: white;
 }
 
-.delete-profile-btn {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 30px;
-    height: 30px;
+.profile-menu {
+    position: static;
+    opacity: 1;
+    display: flex;
+    gap: 10px;
+}
+
+.profile-menu-btn {
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    background-color: #f44336;
-    color: white;
     border: none;
-    font-size: 1.2em;
     cursor: pointer;
+    font-size: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
-.profile:hover .delete-profile-btn {
-    opacity: 1;
+.edit-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.settings-page {
+    text-align: left;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.settings-page h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+#profiles-list-settings .profile, #profiles-list-kids .profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+#profiles-list-kids {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#profiles-list-kids .profile {
+    cursor: pointer;
+    font-size: 1.5em;
+    text-align: center;
+    justify-content: center;
 }
 
 input[type="text"], input[type="number"] {
-    width: 80%;
+    width: 95%;
     padding: 15px;
     margin-bottom: 15px;
     border: 2px solid #ddd;
@@ -114,6 +154,8 @@ input[type="text"], input[type="number"] {
     transition: all 0.3s ease;
     font-family: var(--font-family);
     font-weight: 700;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .btn-primary {
@@ -139,12 +181,14 @@ input[type="text"], input[type="number"] {
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .module-btn {
     background-color: var(--secondary-color);
     color: white;
     font-size: 1.5em;
+    width: auto; /* Override full width for module buttons */
 }
 
 .module-btn:hover {
@@ -273,6 +317,12 @@ input[type="text"], input[type="number"] {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+.fab-exit {
+    right: 90px; /* Position it to the left of the settings FAB */
+    background-color: #f44336;
 }
 
 .fab:hover {
@@ -296,7 +346,7 @@ input[type="text"], input[type="number"] {
 .modal-content {
     position: relative;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
 }
 
 .btn-exit {
@@ -349,4 +399,9 @@ input[type="text"], input[type="number"] {
     font-size: 0.9em;
     color: #666;
     margin-top: 15px;
+}
+
+hr {
+    border: 1px solid #eee;
+    margin: 30px 0;
 }

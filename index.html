@@ -13,37 +13,28 @@
             <h1>SparkLearn ✨</h1>
         </header>
 
-        <div id="profile-selection" class="card">
-            <h2>👤 Select Profile</h2>
-            <div id="profiles"></div>
-            <button id="new-profile-btn" class="btn-primary">Create New Profile ✨</button>
-        </div>
-
-        <div id="profile-creation" class="card hidden">
-            <h2>✏️ Create Profile</h2>
-            <input type="text" id="name" placeholder="Enter Name">
-            <input type="number" id="age" placeholder="Enter Age">
-            <button id="save-profile-btn" class="btn-primary">Save Profile</button>
-        </div>
-
-        <div id="main-app" class="hidden">
-            <button id="exit-to-profile-btn" class="btn-exit">🏠 Exit</button>
-            <h2 id="welcome-message"></h2>
-            <div id="module-selection" class="card">
-                <h3>Choose Your Adventure!</h3>
-                <div class="module-buttons">
-                    <button class="module-btn" data-module="reading">📚 Reading</button>
-                    <button class="module-btn" data-module="math">🧮 Math</button>
-                    <button class="module-btn" data-module="logic">🧠 Logic</button>
-                </div>
+        <!-- Main View for Kids -->
+        <div id="main-view">
+            <div id="welcome-screen" class="card">
+                <h2>Welcome!</h2>
+                <p>Please select your profile to start your adventure!</p>
+                <button id="select-profile-btn" class="btn-primary">Select Profile</button>
             </div>
 
-            <div id="module-view" class="card hidden">
-                <button id="back-btn" class="btn-secondary">⬅️ Back to Modules</button>
-                <h3 id="module-title"></h3>
-                <div class="loader"></div>
-                <!-- New structure for story and questions -->
-                <div id="module-content-container">
+            <div id="main-app" class="hidden">
+                <h2 id="welcome-message"></h2>
+                <div id="module-selection" class="card">
+                    <h3>Choose Your Adventure!</h3>
+                    <div class="module-buttons">
+                        <button class="module-btn" data-module="reading">📚 Reading</button>
+                        <button class="module-btn" data-module="math">🧮 Math</button>
+                        <button class="module-btn" data-module="logic">🧠 Logic</button>
+                    </div>
+                </div>
+                <div id="module-view" class="card hidden">
+                    <button id="back-btn" class="btn-secondary">⬅️ Back to Modules</button>
+                    <h3 id="module-title"></h3>
+                    <div class="loader"></div>
                     <div id="story-content"></div>
                     <div id="questions-container"></div>
                     <div id="score-container" class="hidden">
@@ -56,20 +47,41 @@
     </div>
 
     <!-- Floating Action Button for Settings -->
-    <button id="settings-fab" class="fab">🔑</button>
+    <button id="settings-fab" class="fab">⚙️</button>
+    <button id="exit-to-profile-btn" class="fab fab-exit hidden">🏠</button>
 
-    <!-- Modal for Parental Gate and API Key -->
+    <!-- Settings Page Modal -->
     <div id="settings-modal" class="modal-container hidden">
-        <div class="modal-content card">
+        <div class="modal-content card settings-page">
+            <h2>⚙️ Parent Settings</h2>
             <div id="api-key-section">
-                <h2>🔑 Gemini API Key</h2>
+                <h3>🔑 Gemini API Key</h3>
                 <input type="text" id="api-key" placeholder="Enter your API key">
                 <button id="save-api-key-btn" class="btn-secondary">Save Key</button>
-                <p class="api-key-info">
-                    You can get a free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>. The free tier is generous, allowing for dozens of modules per day.
-                </p>
+                <p class="api-key-info">Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.</p>
             </div>
-            <button id="close-modal-btn" class="btn-close">✖</button>
+            <hr>
+            <div id="profile-management-section">
+                <h3>👤 Manage Profiles</h3>
+                <div id="profiles-list-settings"></div>
+                <div id="profile-creation" class="hidden">
+                    <h4>Create New Profile</h4>
+                    <input type="text" id="name" placeholder="Name">
+                    <input type="number" id="age" placeholder="Age">
+                    <button id="save-profile-btn" class="btn-primary">Save Profile</button>
+                </div>
+                <button id="add-profile-btn" class="btn-secondary">✨ Add New Profile</button>
+            </div>
+            <button id="close-settings-modal-btn" class="btn-close">✖</button>
+        </div>
+    </div>
+
+    <!-- Kids Profile Selection Modal -->
+    <div id="profile-selection-modal" class="modal-container hidden">
+        <div class="modal-content card">
+            <h2>Who's Learning Today?</h2>
+            <div id="profiles-list-kids"></div>
+            <button id="close-profile-selection-btn" class="btn-close">✖</button>
         </div>
     </div>
 
@@ -85,9 +97,21 @@
         </div>
     </div>
 
+    <!-- Edit Profile Modal -->
+    <div id="edit-profile-modal" class="modal-container hidden">
+        <div class="modal-content card">
+            <h2>✏️ Edit Profile</h2>
+            <input type="text" id="edit-name" placeholder="Enter Name">
+            <input type="number" id="edit-age" placeholder="Enter Age">
+            <button id="save-edit-profile-btn" class="btn-primary">Save Changes</button>
+            <button id="close-edit-modal-btn" class="btn-close">✖</button>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <script src="prompts.js"></script>
     <script src="gemini.js"></script>
+    <script type="module" src="ui.js"></script>
     <script type="module" src="app.js"></script>
 </body>
 </html>

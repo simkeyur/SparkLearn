@@ -1,5 +1,6 @@
 import {
-    renderProfiles,
+    renderProfilesForSettings,
+    renderProfilesForKids,
     displayModuleContent,
     displayError,
     showLoader,
@@ -10,19 +11,22 @@ import {
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Element Selections ---
-    const profileSelection = document.getElementById('profile-selection');
-    const profileCreation = document.getElementById('profile-creation');
+    const welcomeScreen = document.getElementById('welcome-screen');
     const mainApp = document.getElementById('main-app');
-    const newProfileBtn = document.getElementById('new-profile-btn');
-    const saveProfileBtn = document.getElementById('save-profile-btn');
-    const nameInput = document.getElementById('name');
-    const ageInput = document.getElementById('age');
+    const selectProfileBtn = document.getElementById('select-profile-btn');
     const welcomeMessage = document.getElementById('welcome-message');
     const apiKeyInput = document.getElementById('api-key');
     const saveApiKeyBtn = document.getElementById('save-api-key-btn');
     const settingsFab = document.getElementById('settings-fab');
     const settingsModal = document.getElementById('settings-modal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
+    const closeSettingsModalBtn = document.getElementById('close-settings-modal-btn');
+    const profileCreation = document.getElementById('profile-creation');
+    const addProfileBtn = document.getElementById('add-profile-btn');
+    const saveProfileBtn = document.getElementById('save-profile-btn');
+    const nameInput = document.getElementById('name');
+    const ageInput = document.getElementById('age');
+    const profileSelectionModal = document.getElementById('profile-selection-modal');
+    const closeProfileSelectionBtn = document.getElementById('close-profile-selection-btn');
     const moduleSelection = document.getElementById('module-selection');
     const moduleView = document.getElementById('module-view');
     const moduleTitle = document.getElementById('module-title');
@@ -38,22 +42,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const parentalAnswerInput = document.getElementById('parental-answer');
     const submitParentalAnswerBtn = document.getElementById('submit-parental-answer-btn');
 
+    // Edit Profile Modal elements
+    const editProfileModal = document.getElementById('edit-profile-modal');
+    const closeEditModalBtn = document.getElementById('close-edit-modal-btn');
+    const editNameInput = document.getElementById('edit-name');
+    const editAgeInput = document.getElementById('edit-age');
+    const saveEditProfileBtn = document.getElementById('save-edit-profile-btn');
+
     // --- Application State ---
     let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
     let currentProfile = null;
     let questionsData = [];
     let parentalCheckAnswer = 0;
-    let onParentalCheckSuccess = null; // Callback for successful check
+    let onParentalCheckSuccess = null;
+    let profileToEditIndex = -1;
 
     // --- Core Logic ---
 
     function selectProfile(profile) {
         currentProfile = profile;
-        profileSelection.classList.add('hidden');
+        welcomeScreen.classList.add('hidden');
         mainApp.classList.remove('hidden');
         moduleSelection.classList.remove('hidden');
         moduleView.classList.add('hidden');
-        welcomeMessage.textContent = `Welcome, ${currentProfile.name}!`;
+        welcomeMessage.textContent = `Welcome, ${profile.name}!`;
+        profileSelectionModal.classList.add('hidden');
+        exitToProfileBtn.classList.remove('hidden'); // Show the exit button
     }
 
     async function selectModule(moduleType) {
@@ -137,28 +151,82 @@ document.addEventListener('DOMContentLoaded', () => {
         openParentalGate(() => {
             profiles.splice(profileIndex, 1);
             localStorage.setItem('profiles', JSON.stringify(profiles));
-            renderProfiles(profiles, selectProfile, deleteProfile);
+            renderProfilesForSettings(profiles, editProfile, deleteProfile);
         });
+    }
+
+    function editProfile(profileIndex) {
+        profileToEditIndex = profileIndex;
+        const profile = profiles[profileIndex];
+        editNameInput.value = profile.name;
+        editAgeInput.value = profile.age;
+        editProfileModal.classList.remove('hidden');
     }
 
     // --- Event Listeners ---
 
-    newProfileBtn.addEventListener('click', () => {
-        profileSelection.classList.add('hidden');
-        profileCreation.classList.remove('hidden');
+    selectProfileBtn.addEventListener('click', () => {
+        renderProfilesForKids(profiles, selectProfile);
+        profileSelectionModal.classList.remove('hidden');
+    });
+
+    closeProfileSelectionBtn.addEventListener('click', () => {
+        profileSelectionModal.classList.add('hidden');
+    });
+
+    addProfileBtn.addEventListener('click', () => {
+        profileCreation.classList.toggle('hidden');
     });
 
     saveProfileBtn.addEventListener('click', () => {
         const name = nameInput.value;
         const age = ageInput.value;
         if (name && age) {
-            const newProfile = { name, age };
-            profiles.push(newProfile);
+            profiles.push({ name, age });
             localStorage.setItem('profiles', JSON.stringify(profiles));
-            selectProfile(newProfile);
+            renderProfilesForSettings(profiles, editProfile, deleteProfile);
+            nameInput.value = '';
+            ageInput.value = '';
             profileCreation.classList.add('hidden');
-            renderProfiles(profiles, selectProfile, deleteProfile);
         }
+    });
+
+    saveEditProfileBtn.addEventListener('click', () => {
+        if (profileToEditIndex > -1) {
+            profiles[profileToEditIndex].name = editNameInput.value;
+            profiles[profileToEditIndex].age = editAgeInput.value;
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+            editProfileModal.classList.add('hidden');
+            renderProfilesForSettings(profiles, editProfile, deleteProfile);
+            profileToEditIndex = -1;
+        }
+    });
+
+    closeEditModalBtn.addEventListener('click', () => {
+        editProfileModal.classList.add('hidden');
+    });
+
+    // --- Settings Listeners ---
+
+    settingsFab.addEventListener('click', () => {
+        openParentalGate(() => {
+            apiKeyInput.value = getApiKey() || ''; // Load existing key into input
+            renderProfilesForSettings(profiles, editProfile, deleteProfile);
+            settingsModal.classList.remove('hidden');
+        });
+    });
+
+    closeSettingsModalBtn.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+    });
+
+    exitToProfileBtn.addEventListener('click', () => {
+        openParentalGate(() => {
+            mainApp.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+            currentProfile = null;
+            exitToProfileBtn.classList.add('hidden'); // Hide the exit button
+        });
     });
 
     moduleBtns.forEach(btn => {
@@ -172,50 +240,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitAnswersBtn.addEventListener('click', checkAnswers);
 
-    exitToProfileBtn.addEventListener('click', () => {
-        openParentalGate(() => {
-            mainApp.classList.add('hidden');
-            profileSelection.classList.remove('hidden');
-        });
-    });
-
-    // --- Settings Listeners ---
-
-    settingsFab.addEventListener('click', () => {
-        openParentalGate(() => {
-            settingsModal.classList.remove('hidden');
-            apiKeyInput.focus();
-        });
-    });
-
-    closeModalBtn.addEventListener('click', () => {
-        settingsModal.classList.add('hidden');
-    });
-
     saveApiKeyBtn.addEventListener('click', () => {
         const apiKey = apiKeyInput.value;
         if (apiKey) {
             setApiKey(apiKey);
             saveApiKeyBtn.textContent = 'Saved!';
             setTimeout(() => {
-                settingsModal.classList.add('hidden');
                 saveApiKeyBtn.textContent = 'Save Key';
-            }, 1000);
+            }, 1500);
         }
     });
 
     // --- Initial Page Load ---
     function initializeApp() {
-        renderProfiles(profiles, selectProfile, deleteProfile);
-        settingsModal.classList.add('hidden');
-        parentalGateModal.classList.add('hidden');
-
         if (!getApiKey()) {
             settingsFab.classList.add('pulse');
             setTimeout(() => {
                 openParentalGate(() => {
                     settingsModal.classList.remove('hidden');
-                    apiKeyInput.focus();
                 });
             }, 1000);
         }

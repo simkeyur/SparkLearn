@@ -1,6 +1,7 @@
 // This file handles all DOM manipulation and UI updates for SparkLearn.
 
-const profilesContainer = document.getElementById('profiles');
+const profilesListSettings = document.getElementById('profiles-list-settings');
+const profilesListKids = document.getElementById('profiles-list-kids');
 const storyContent = document.getElementById('story-content');
 const questionsContainer = document.getElementById('questions-container');
 const scoreContainer = document.getElementById('score-container');
@@ -9,29 +10,44 @@ const submitAnswersBtn = document.getElementById('submit-answers-btn');
 const loader = document.querySelector('#module-view .loader');
 const markdownConverter = new showdown.Converter();
 
-export function renderProfiles(profiles, selectProfileCallback, deleteProfileCallback) {
-    profilesContainer.innerHTML = '';
+export function renderProfilesForSettings(profiles, editProfileCallback, deleteProfileCallback) {
+    profilesListSettings.innerHTML = '';
     profiles.forEach((profile, index) => {
         const profileElement = document.createElement('div');
-        profileElement.classList.add('profile');
-        profileElement.textContent = profile.name;
-        profileElement.addEventListener('click', (e) => {
-            // Prevent selection when delete button is clicked
-            if (e.target.tagName !== 'BUTTON') {
-                selectProfileCallback(profile);
-            }
-        });
+        profileElement.className = 'profile';
+        
+        const profileName = document.createElement('span');
+        profileName.textContent = `${profile.name} (Age: ${profile.age})`;
+        profileElement.appendChild(profileName);
+
+        const menu = document.createElement('div');
+        menu.className = 'profile-menu';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'profile-menu-btn edit-btn';
+        editBtn.textContent = '✏️';
+        editBtn.addEventListener('click', () => editProfileCallback(index));
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-profile-btn';
-        deleteBtn.textContent = '✖';
-        deleteBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent profile selection
-            deleteProfileCallback(index);
-        });
+        deleteBtn.className = 'profile-menu-btn delete-btn';
+        deleteBtn.textContent = '✖️';
+        deleteBtn.addEventListener('click', () => deleteProfileCallback(index));
 
-        profileElement.appendChild(deleteBtn);
-        profilesContainer.appendChild(profileElement);
+        menu.appendChild(editBtn);
+        menu.appendChild(deleteBtn);
+        profileElement.appendChild(menu);
+        profilesListSettings.appendChild(profileElement);
+    });
+}
+
+export function renderProfilesForKids(profiles, selectProfileCallback) {
+    profilesListKids.innerHTML = '';
+    profiles.forEach(profile => {
+        const profileElement = document.createElement('div');
+        profileElement.className = 'profile';
+        profileElement.textContent = profile.name;
+        profileElement.addEventListener('click', () => selectProfileCallback(profile));
+        profilesListKids.appendChild(profileElement);
     });
 }
 
