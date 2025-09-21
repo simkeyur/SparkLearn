@@ -1,38 +1,39 @@
 # SparkLearn ✨
 
-SparkLearn is a modern, kid-friendly web app designed to help children learn reading and math through interactive, AI-powered modules. The app adapts content to the child's age, making learning fun, engaging, and personalized.
-https://simkeyur.github.io/sparklearn
+**Live Demo:** [**https://simkeyur.github.io/sparklearn**](https://simkeyur.github.io/sparklearn)
+
+SparkLearn is a modern, kid-friendly web app designed to help children learn reading, math, and logic through interactive, AI-powered modules. The app adapts content to the child's age, making learning fun, engaging, and personalized, while keeping all parental controls in a single, secure area.
+
 ## Features
 
-- **Profile Creation:** Kids can create and select their own profiles (name, age) stored in local storage.
-- **Age-Appropriate Modules:** Reading and Math modules are generated based on age ranges (1-3, 4-6, 7-9, 10-12).
-- **AI-Powered Content:** Uses Gemini Flash 2.5 API (BYOK) to generate stories, math problems, and questions.
-- **Interactive Questions:** Multiple-choice questions are presented as cards, with instant feedback and scoring.
-- **Modern, Tablet-Friendly UI:** Bright, playful design with emojis and responsive layout.
-- **Parental Controls:** Gemini API key management is protected by a birth year validation modal.
+- **Simplified Kid's View:** A clean, simple welcome screen where kids select their profile to begin.
+- **Centralized Parent Settings:** All administrative tasks are consolidated into a single settings page, accessible via a floating gear icon (⚙️).
+- **Robust Profile Management:** From the settings page, parents can easily **Create**, **Edit**, and **Delete** kid profiles.
+- **Consistent Parental Gate:** A single, simple math question protects all sensitive actions (accessing settings, editing/deleting profiles, exiting a session).
+- **Age-Appropriate Modules:** Reading, Math, and a new **Coding/Logic** module are generated based on specific age ranges (1-3, 4-6, 7-9, 10-12).
+- **AI-Powered Content:** Uses the Gemini API (BYOK) to generate stories, math problems, and logic puzzles.
+- **Interactive Quizzes:** Multiple-choice questions are presented as clean, readable cards with instant feedback and scoring.
+- **Modern, Tablet-Friendly UI:** A bright, playful design with emojis and a fully responsive layout.
 
 ## Getting Started
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/simkeyur/SparkLearn.git
-   ```
-2. **Open `index.html` in your browser.**
-3. **Set your Gemini API key:** Click the floating key icon (bottom right) and enter your API key (parental gate protected).
-4. **Create a profile and start learning!**
-
-## Age Ranges & Module Details
-
-- **1-3 years:** Simple stories and counting/math questions with emojis.
-- **4-6 years:** Short stories and basic addition/subtraction.
-- **7-9 years:** Longer stories, vocabulary, and multiplication/division.
-- **10-12 years:** Complex reading comprehension and word/math problems.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/simkeyur/SparkLearn.git
+    ```
+2.  **Open `index.html` in your browser.**
+3.  **Set your Gemini API key:**
+    -   Click the floating gear icon (⚙️) at the bottom right.
+    -   Answer the simple math question to unlock the settings.
+    -   Enter your API key and click "Save". You can get a free key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+4.  **Create a profile** for your child within the settings page.
+5.  **Return to the main screen** and let your child select their profile to start learning!
 
 ## Technologies Used
 
-- Plain HTML, CSS, JavaScript
-- [Showdown.js](https://github.com/showdownjs/showdown) for Markdown rendering
-- Gemini Flash 2.5 API (BYOK)
+-   Plain HTML, CSS, JavaScript (ES6 Modules)
+-   [Showdown.js](https://github.com/showdownjs/showdown) for Markdown rendering
+-   Gemini API (BYOK - Bring Your Own Key)
 
 ## Contributing
 
